@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do</title>
+</head>
+<body>
+    <main>
+
+        <header>
+            <div class="date__container">
+                <div class="date">
+                    <h1 class="dayNumber__js">07</h1>
+                    <div class="monther">
+                        <p class="monther__js">July</p>
+                        <p class="year__js">2024</p>
+                    </div>
+                </div>
+                <div class="day">
+                    <p class="day__js">Wednesday</p>
+                </div>
+            </div>
+            <div class="bar">
+                <div class="progresso"></div>
+            </div>
+        </header>
+                
+        <nav>
+            <div class="actions">
+                <button class="done">done</button>
+                <button class="peding">pending</button>
+            </div>
+            <form class="form_search" >
+                <input type="text" minlength="3" id="search" placeholder="Search items"  >
+                <button class="buttonSearch">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        </nav>
+
+        <div class="items__container">
+            <div class="addItems">
+                <form class="formAddCard">
+                    <input type="text" minlength="3" id="addItem__input" placeholder="Add new item"  >
+                    <button class="buttonAddCard" type="submit">
+                        <div >
+                            <i class="fa-solid fa-plus"></i>
+                        </div>
+                    </button>
+                </form>
+            </div>
+            <div class="listItems">
+                <form class="itemCard">
+                    <input type="text" id="itemName" placeholder="Tesks">
+                    <div class="buttonsAction">
+                        <button class="buttonRemove">
+                            <div>
+                                <i class="fa-solid fa-minus"></i>
+                            </div>
+                        </button>
+                        <button class="buttonDone">
+                            <div>
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                        </button>                    
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

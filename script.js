@@ -1,12 +1,12 @@
 // tesk a fazer 
 
 
-// editar os card 
-// remover e concluir 
-// esconder os cards quando passar do limite de tela
-// parar a duplicação dos cards
+ // Criar evento de edição
+// criar uma funão que joga as informações em memôria local e depois exibe em tela; --- Em andamento......
+// Criar o sistema de concluido e pendentes -- Em andamento....
 // gerar o sistema de filtro
 // adicionar a api para traduzir o idioma 
+// Ageitar o ressponsivo
 
 
 
@@ -15,6 +15,13 @@
 
 
 window.onload = atualizarData;
+
+var cardConcluidos = [];
+
+
+
+
+
 
 // Atualizar a data em tempo real
 
@@ -56,26 +63,24 @@ function atualizarData () {
     dayWeek.textContent = week[date.getUTCDay() - 1];
 }    
 
-// Adicionar um novo card
+// Evita o comportamento dos formulários
 
 const formAddCard = document.querySelector(".formAddCard");
 formAddCard.addEventListener("submit", (event) => {
   event.preventDefault();
-
-  const inputAddCard = document.querySelector("#addItem__input").value;
-  const buttonAddCard = document.querySelector(".buttonAddCard");
-
-  buttonAddCard.addEventListener("click", () => {
-    // chama a função de jogar o elemento em tela
-    criarCard(inputAddCard);
-    
-  });
-
+  formAddCard.reset()
 });
 
-// criar um novo card
+// Função que cria novos cards 
 
 var criarCard = (inputValue) => {
+    const inputAddCard = document.querySelector(inputValue).value;
+
+    if (inputAddCard == ''){
+
+    } else {
+      
+
     const container = document.querySelector('.listItems')
 
     const form = document.createElement('form');
@@ -85,7 +90,7 @@ var criarCard = (inputValue) => {
 
     const input = document.createElement('input');
     input.setAttribute('id','itemName')
-    input.placeholder = inputValue;
+    input.placeholder = inputAddCard;
 
     const divActions = document.createElement('div');
     divActions.classList.add('buttonsAction')
@@ -120,13 +125,57 @@ var criarCard = (inputValue) => {
 
     container.appendChild(form);
 
-    // Criar os eventos de edição e eventos de remover e de conclusão 
+    // Joga o card criado para lista de pendentes no local storage
 
+      storegeLocal('pending' , inputAddCard)
+    
+    // evento de edição de informações do input
 
+    input.addEventListener('change', (event) => {
+      console.log(event)
 
+    })
 
+    // Evento de remoção de card 
+
+    buttonRemove.addEventListener('click', () =>{ 
+
+      form.remove();
+
+    })
+
+    // Evento de conclução de card e adição na lista de concluidos ;
+
+    buttonDone.addEventListener('click', () => {
+      
+      storegeLocal('Concluidos', inputAddCard)    
+      console.log(cardConcluidos)
+      form.remove()
+    
+    })
+
+    }
 };
 
 
+// Mandar o array com as tesks prontas para memoria local
 
+var storegeLocal = (chave , valor) => {
+  var memoriaLocal = JSON.parse(localStorage.getItem(chave));
 
+  if (memoriaLocal == null){
+    memoriaLocal = [];
+  }
+
+  memoriaLocal.push(valor);
+
+  localStorage.setItem(chave, JSON.stringify(memoriaLocal));
+}
+
+// Exibir em tela os elementos em memoria local
+
+const buttonPending = document.querySelector('.peding');
+
+buttonPending.addEventListener('click', () => {
+
+})

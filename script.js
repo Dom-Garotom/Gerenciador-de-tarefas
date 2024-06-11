@@ -3,15 +3,10 @@
 
  // Criar evento de edição
 
- 
-// gerar o sistema de filtro
+// gerar o sistema de reiniciar a cada dia 
+// gerar o sistema de filtro de pesquisa
 // adicionar a api para traduzir o idioma 
 // Ageitar o ressponsivo
-
-
-var tamanho = localStorage.getItem('pending');
-
-
 
 
 
@@ -21,7 +16,32 @@ var cardConcluidos = [];
 
 
 
+var buttonDone = document.querySelector('.done');
+buttonDone.addEventListener('click',  () => {
+  buttonDone.classList.add('doneActive')
+  buttonPending.classList.remove('pedingActive')
+})
 
+var buttonPending = document.querySelector('.peding');
+buttonPending.addEventListener('click',  () => {
+  buttonPending.classList.add('pedingActive')
+  buttonDone.classList.remove('doneActive')
+})
+
+// Evita o comportamento dos formulários
+
+const formAddCard = document.querySelector(".formAddCard");
+formAddCard.addEventListener("submit", (event) => {
+  event.preventDefault();
+  formAddCard.reset()
+});
+
+
+
+
+
+
+// Funções criadas para organização de código,
 
 
 // Atualizar a data em tempo real
@@ -65,16 +85,8 @@ function atualizarData () {
 }    
 
 
-atualizarProgresso()
 
 
-// Evita o comportamento dos formulários
-
-const formAddCard = document.querySelector(".formAddCard");
-formAddCard.addEventListener("submit", (event) => {
-  event.preventDefault();
-  formAddCard.reset()
-});
 
 // Função que cria novos cards 
 
@@ -85,17 +97,17 @@ var criarCard = (inputValue) => {
 
     } else {
       
+    const itemCard = document.createElement('div');
+    itemCard.classList.add('itemCard')
 
     const container = document.querySelector('.listItems')
 
-    const form = document.createElement('form');
-    form.classList.add('itemCard');
+    const NameItem = document.createElement('span');
+    NameItem.setAttribute('id','itemName')
 
-    form.addEventListener('submit' , (event) => {event.preventDefault()});
-
-    const input = document.createElement('input');
-    input.setAttribute('id','itemName')
-    input.placeholder = inputAddCard;
+    const name = document.createElement('p');
+    name.classList.add('name')
+    name.innerHTML = inputAddCard;
 
     const divActions = document.createElement('div');
     divActions.classList.add('buttonsAction')
@@ -126,17 +138,20 @@ var criarCard = (inputValue) => {
     divActions.appendChild(buttonRemove);
     divActions.appendChild(buttonDone);
 
-    form.appendChild(input);
-    form.appendChild(divActions);
+    NameItem.appendChild(name);
 
-    container.appendChild(form);
+    itemCard.appendChild(NameItem);
+    itemCard.appendChild(divActions);
+
+    container.appendChild(itemCard);
     
 
     // Ação de apresentar os botões de ação ao clicar
 
-    input.addEventListener('click', () =>{
-      divActions.classList.remove('escondido')
-      input.classList.remove('inputEscondido')
+    NameItem.addEventListener('click', () =>{
+      
+      divActions.classList.toggle('escondido');
+      
     })
 
 
@@ -146,10 +161,7 @@ var criarCard = (inputValue) => {
     
     // evento de edição de informações do input
 
-    input.addEventListener('change', (event) => {
-      console.log(event)
 
-    })
 
     // Evento de remoção de card 
 
@@ -174,11 +186,12 @@ var criarCard = (inputValue) => {
 };
 
 
-
 // Exibir em tela os elementos em memoria local pendentes
 
 var cardsPendentes = () => {
-  const buttonPending = document.querySelector('.peding');
+
+  const containerAddItem = document.querySelector('.addItems');
+  containerAddItem.classList.remove('escondido')
   
   // função para remover todos os elementos em tela 
   
@@ -193,7 +206,9 @@ var cardsPendentes = () => {
 // Exibir em tela os elementos em memoria local concluidos
 
 var cardsConcluidos = () => {
-  const buttonPending = document.querySelector('.peding');
+
+  const containerAddItem = document.querySelector('.addItems');
+  containerAddItem.classList.add('escondido')
   
   // função para remover todos os elementos em tela 
   
@@ -204,10 +219,7 @@ var cardsConcluidos = () => {
   MostrarEmTela('Concluidos');
   
 }
-
-  
-  
-  
+ 
   
 // função que renderiza elementos em local storage em tela  
   
@@ -216,6 +228,9 @@ var MostrarEmTela = ( chave ) => {
   
 
   if (chave == 'pending'){
+
+
+
     value.forEach( input => {
       criarCardsLocaisPendentes(input);
     })
@@ -259,39 +274,40 @@ var storegeLocal = (chave , valor) => {
 
 var criarCardsLocaisPendentes = ( value ) => {
 
+  const itemCard = document.createElement('div');
+  itemCard.classList.add('itemCard')
+
   const container = document.querySelector('.listItems')
 
-  const form = document.createElement('form');
-  form.classList.add('itemCard');
+  const NameItem = document.createElement('span');
+  NameItem.setAttribute('id','itemName')
 
-  form.addEventListener('submit' , (event) => {event.preventDefault()});
-
-  const input = document.createElement('input');
-  input.setAttribute('id','itemName')
-  input.placeholder = value;
+  const name = document.createElement('p');
+  name.classList.add('name')
+  name.innerHTML = value ;
 
   const divActions = document.createElement('div');
   divActions.classList.add('buttonsAction')
-  divActions.classList.add('escondido')
+  divActions.classList.add("escondido")
 
   const buttonRemove = document.createElement('button');
   buttonRemove.classList.add('buttonRemove');
 
-  const divRemove = document.createElement('div');
-  const iRemove = document.createElement('i');
-  iRemove.classList.add("fa-solid","fa-minus")
+ const divRemove = document.createElement('div');
+ const iRemove = document.createElement('i');
+ iRemove.classList.add("fa-solid","fa-minus")
 
 
-  const buttonDone = document.createElement('button');
-  buttonDone.classList.add('buttonDone');
+ const buttonDone = document.createElement('button');
+ buttonDone.classList.add('buttonDone');
 
 
   const divAdd = document.createElement('div');
   const iDone = document.createElement('i');
   iDone.classList.add("fa-solid" , "fa-check")
 
-  divRemove.appendChild(iRemove);
   buttonRemove.appendChild(divRemove);
+  divRemove.appendChild(iRemove);
 
   divAdd.appendChild(iDone);
   buttonDone.appendChild(divAdd);
@@ -299,18 +315,25 @@ var criarCardsLocaisPendentes = ( value ) => {
   divActions.appendChild(buttonRemove);
   divActions.appendChild(buttonDone);
 
-  form.appendChild(input);
-  form.appendChild(divActions);
+  NameItem.appendChild(name);
 
-  container.appendChild(form);
+  itemCard.appendChild(NameItem);
+  itemCard.appendChild(divActions);
 
-  
-  // Ação de apresentar os botões de ação ao clicar
+  container.appendChild(itemCard);
+    
 
-  input.addEventListener('click', () =>{
-    divActions.classList.remove('escondido')
+    // Ação de apresentar os botões de ação ao clicar
+
+  NameItem.addEventListener('click', () =>{
+    
+    
+    divActions.classList.toggle('escondido');
+    
   })
-  
+
+  // evento de edição de informações do input
+
 
   // Evento de remoção de card 
 
@@ -323,15 +346,14 @@ var criarCardsLocaisPendentes = ( value ) => {
   // Evento de conclução de card e adição na lista de concluidos ;
 
   buttonDone.addEventListener('click', () => {
-    
-    removerDaMemoria( 'pending' , value )
-    storegeLocal( 'Concluidos', value )    
+
+    removerDaMemoria( 'pending' , inputAddCard )
+    storegeLocal( 'Concluidos', inputAddCard)    
     console.log(cardConcluidos)
     form.remove()
-  
+    
   })
 
-  
 }
 
 
@@ -368,24 +390,23 @@ var removerDaMemoria = (  chave , elementoParaRemover ) => {
 
 // ação que calcula a porcentagem da barra de conclução
 
-function atualizarProgresso () {
-
-  const progresso = document.querySelector('#progresso');
+// function atualizarProgresso () {
+//   var tamanho = localStorage.getItem('pending');
+//   const progresso = document.querySelector('#progresso');
   
   
   
-  var array =  JSON.parse(localStorage.getItem('pending'));
-  var array2 =  JSON.parse(localStorage.getItem('Concluidos'))
+//   var array =  JSON.parse(localStorage.getItem('pending'));
+//   var array2 =  JSON.parse(localStorage.getItem('Concluidos'))
 
 
-  var total = array.length + array2.length;
+//   var total = array.length + array2.length;
 
-  var prog = ((array2 / 100) * total) / 100;
+//   var prog = ((array2 / 100) * total) / 100;
   
-  teste = Math.round(prog);
+//   teste = Math.round(prog);
   
-  progresso.style.width = `${teste}%`
-  console.log(teste) 
-}
-
+//   progresso.style.width = `${teste}%`
+//   console.log(teste) 
+// }
 

@@ -104,6 +104,16 @@ nav{
     border: 1px solid #DBDBDB;
     border-radius: 17px;
 }
+.done:hover{
+    background-color: #5DE290;
+    color: #fff;
+}
+.doneActive{
+    border: 1px solid #5DE290;
+    color: #368353;
+}
+
+
 .peding{
     width: 83px;
     height: 33px;
@@ -112,6 +122,14 @@ nav{
     background-color: #fff;
     border: 1px solid #DBDBDB;
     border-radius: 17px;
+}
+.peding:hover{
+    background-color: #e37373;
+    color: #fff;
+}
+.pedingActive{
+    border: 1px solid #e37373;
+    color:  #844242;
 }
 
 .form_search{
@@ -220,6 +238,8 @@ nav{
     border: 1px solid #DBDBDB;
     border-radius: 4px;
     margin: 16px 0px; 
+    background-color: #fff; 
+
 }
 .buttonsAction{
     display: flex;
@@ -264,18 +284,22 @@ nav{
 }
 
 #itemName{
-    color: #848484;
-    font-size: 14px;
-    text-align: left;
+    display: flex;
+    align-items: center;
     width: 100%;
     height: 39px;
     border: none;
-    background-color: #fff;
 }
-#itemName:focus{
+/* #itemName:focus{
     box-shadow: 0 0 0 0;
     border: 0 none;
     outline: 0;
+} */    
+
+.name{
+    color: #848484;
+    font-size: 14px;
+    text-align: left;
 }
 
 

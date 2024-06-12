@@ -167,7 +167,7 @@ var criarCard = (inputValue) => {
 
     buttonRemove.addEventListener('click', () =>{ 
 
-      form.remove();
+      itemCard.remove();
 
     })
 
@@ -176,9 +176,8 @@ var criarCard = (inputValue) => {
     buttonDone.addEventListener('click', () => {
 
       removerDaMemoria( 'pending' , inputAddCard )
-      storegeLocal( 'Concluidos', inputAddCard)    
-      console.log(cardConcluidos)
-      form.remove()
+      storegeLocal( 'Concluidos', inputAddCard)
+      itemCard.remove()
     
     })
 
@@ -273,6 +272,8 @@ var storegeLocal = (chave , valor) => {
 // Função para criar elementos dos cards salvos localmente
 
 var criarCardsLocaisPendentes = ( value ) => {
+  const inputAddCard = value;
+
 
   const itemCard = document.createElement('div');
   itemCard.classList.add('itemCard')
@@ -284,7 +285,7 @@ var criarCardsLocaisPendentes = ( value ) => {
 
   const name = document.createElement('p');
   name.classList.add('name')
-  name.innerHTML = value ;
+  name.innerHTML = value;
 
   const divActions = document.createElement('div');
   divActions.classList.add('buttonsAction')
@@ -339,7 +340,7 @@ var criarCardsLocaisPendentes = ( value ) => {
 
   buttonRemove.addEventListener('click', () =>{ 
 
-    form.remove();
+    itemCard.remove();
 
   })
 
@@ -347,10 +348,9 @@ var criarCardsLocaisPendentes = ( value ) => {
 
   buttonDone.addEventListener('click', () => {
 
-    removerDaMemoria( 'pending' , inputAddCard )
-    storegeLocal( 'Concluidos', inputAddCard)    
-    console.log(cardConcluidos)
-    form.remove()
+    removerDaMemoria( 'pending' , value )
+    storegeLocal( 'Concluidos',  value )    
+    itemCard.remove()
     
   })
 
@@ -381,9 +381,16 @@ var removerDaMemoria = (  chave , elementoParaRemover ) => {
     values = [];
   }
 
-  var RemoveValues  = values.filter( (  valor ) => { valor !== elementoParaRemover })
+  if (typeof elementoParaRemover === 'string') {
 
-  localStorage.setItem(`${chave}` , JSON.stringify(RemoveValues));
+    values = values.filter(valor => valor !== elementoParaRemover);
+    localStorage.setItem( chave , JSON.stringify(values));
+
+  } else {
+
+    console.log('O '+elementoParaRemover+' não é uma string')
+
+  }
 
 }
 
@@ -409,4 +416,3 @@ var removerDaMemoria = (  chave , elementoParaRemover ) => {
 //   progresso.style.width = `${teste}%`
 //   console.log(teste) 
 // }
-

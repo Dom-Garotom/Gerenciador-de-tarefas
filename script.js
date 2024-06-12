@@ -2,11 +2,11 @@
 
 
  // Criar evento de edição
-
-// gerar o sistema de reiniciar a cada dia 
-// gerar o sistema de filtro de pesquisa
-// adicionar a api para traduzir o idioma 
-// Ageitar o ressponsivo
+ 
+ // Ageitar o ressponsivo
+ // gerar o sistema de filtro de pesquisa
+ // adicionar a api para traduzir o idioma 
+ // gerar o sistema de reiniciar a cada dia 
 
 
 

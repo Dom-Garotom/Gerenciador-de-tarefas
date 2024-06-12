@@ -329,3 +329,70 @@ nav{
 .escondido{
     display: none;
 }
+
+
+/* Responsivo */
+
+
+@media screen  and (min-width:360px) and (max-width : 510px) {
+    body{
+        padding: 1rem;
+    }
+
+    main{
+        width: 97vw;
+        height: 95vh;
+        padding: 3rem 1rem 1rem 1rem;
+        border-radius: 4px;
+    }
+    .date__container {
+       justify-content: space-between;
+       gap: 20%;
+    }
+
+    nav {
+        flex-direction: column-reverse;
+        margin: 0;
+    }
+    nav .form_search{
+        max-width: 100%;
+        position: relative;
+    }
+    nav .actions{
+        position: relative;
+        width: 10rem;
+        margin: 12px 0px;
+    }
+
+    .items__container{
+        width: 100%;
+    }
+    .listItems{
+        width: 100%;
+        min-height: 24rem;
+        margin: 0px 0px 0px 0px;
+    }
+}
+
+
+@media screen  and (min-width:510px) and (max-width : 733px) {
+
+    .date__container {
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+
+    nav {
+        flex-direction: column-reverse;
+        margin: 0;
+    }
+    nav .form_search{
+        max-width: 100%;
+        position: relative;
+    }
+    nav .actions{
+        width: 10rem;
+        margin: 12px 0px ;
+    }
+}

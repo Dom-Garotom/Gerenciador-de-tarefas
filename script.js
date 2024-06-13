@@ -1,19 +1,12 @@
 // tesk a fazer 
 
 
- // Criar evento de edição
+// Criar evento de edição
+// gerar o sistema de filtro de pesquisa
+// adicionar a api para traduzir o idioma 
 
- // Terminar de ageitar o sitema de excluir o card do localstorage quando aperta o button de remover - bug
+window.onload = atualizarTasksDiarias , atualizarData()  ;
 
-
- // gerar o sistema de filtro de pesquisa
- // adicionar a api para traduzir o idioma 
-
-
-
-window.onload = atualizarTasksDiarias , atualizarData() ;
-
-var cardConcluidos = [];
 
 
 
@@ -29,6 +22,20 @@ buttonPending.addEventListener('click',  () => {
   buttonDone.classList.remove('doneActive')
 })
 
+
+// lembrar de estudar mais sobre esse metódo de atualização pelo dom 
+
+const atualizador = new MutationObserver(atualizarProgresso)
+const observador = document.querySelector('.items__container');
+const config = { childList: true, subtree: true };
+
+if (observador){
+  atualizador.observe(observador , config);
+}
+
+
+
+
 // Evita o comportamento dos formulários
 
 const formAddCard = document.querySelector(".formAddCard");
@@ -36,9 +43,6 @@ formAddCard.addEventListener("submit", (event) => {
   event.preventDefault();
   formAddCard.reset()
 });
-
-
-
 
 
 // Funções criadas para organização de código,
@@ -109,12 +113,13 @@ function atualizarTasksDiarias () {
 
 // Função que cria novos cards 
 
-var criarCard = (inputValue) => {
+const criarCard = (inputValue) => {
     const inputAddCard = document.querySelector(inputValue).value;
 
     if (inputAddCard == ''){
 
     } else {
+
       
     const itemCard = document.createElement('div');
     itemCard.classList.add('itemCard')
@@ -185,7 +190,7 @@ var criarCard = (inputValue) => {
     // Evento de remoção de card 
 
     buttonRemove.addEventListener('click', () =>{ 
-
+      removerDaMemoria( 'pending' , inputAddCard )
       itemCard.remove();
 
     })
@@ -193,11 +198,9 @@ var criarCard = (inputValue) => {
     // Evento de conclução de card e adição na lista de concluidos ;
 
     buttonDone.addEventListener('click', () => {
-
       removerDaMemoria( 'pending' , inputAddCard )
       storegeLocal( 'Concluidos', inputAddCard)
       itemCard.remove()
-    
     })
 
     }
@@ -289,8 +292,6 @@ var storegeLocal = (chave , valor) => {
 // Função para criar elementos dos cards salvos localmente
 
 var criarCardsLocaisPendentes = ( value ) => {
-  const inputAddCard = value;
-
 
   const itemCard = document.createElement('div');
   itemCard.classList.add('itemCard')
@@ -357,9 +358,8 @@ var criarCardsLocaisPendentes = ( value ) => {
 
   buttonRemove.addEventListener('click', () =>{ 
 
+    removerDaMemoria( 'pending' , value )
     itemCard.remove();
-
-    // tem que remover do local storage
 
   })
 
@@ -416,22 +416,16 @@ var removerDaMemoria = (  chave , elementoParaRemover ) => {
 
 // ação que calcula a porcentagem da barra de conclução
 
-// function atualizarProgresso () {
-//   var tamanho = localStorage.getItem('pending');
-//   const progresso = document.querySelector('#progresso');
-  
-  
-  
-//   var array =  JSON.parse(localStorage.getItem('pending'));
-//   var array2 =  JSON.parse(localStorage.getItem('Concluidos'))
+function atualizarProgresso () {
+  let Pendentes = JSON.parse(localStorage.getItem('pending'));
+  let concluidas = JSON.parse(localStorage.getItem('Concluidos'));
+  let total = Pendentes.length + concluidas.length;
+
+  let prog = ( concluidas.length / total ) * 100;
+  prog = prog.toFixed(2);
 
 
-//   var total = array.length + array2.length;
+  const progresso = document.querySelector('#progresso');
 
-//   var prog = ((array2 / 100) * total) / 100;
-  
-//   teste = Math.round(prog);
-  
-//   progresso.style.width = `${teste}%`
-//   console.log(teste) 
-// }
+  progresso.style.width = `${prog}%`;
+}

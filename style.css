@@ -79,11 +79,11 @@ header{
     margin: 24px 0px  27px 0px;
 }
 #progresso{
-    width: 40%;
+    width: 0%;
     height: 24px;
     background-color: #5DE290;
     border-radius: 4px;
-    transition: smooth 3s;
+    transition: 3s;
 }
 
 /* estilos nav */

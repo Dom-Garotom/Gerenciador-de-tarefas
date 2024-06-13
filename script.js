@@ -2,13 +2,11 @@
 
 
 // Criar evento de edição
-// gerar o sistema de filtro de pesquisa
 // adicionar a api para traduzir o idioma 
 
-window.onload = atualizarTasksDiarias , atualizarData()  ;
 
 
-
+window.onload = atualizarTasksDiarias , atualizarData()  , atualizarProgresso();
 
 var buttonDone = document.querySelector('.done');
 buttonDone.addEventListener('click',  () => {
@@ -42,6 +40,18 @@ const formAddCard = document.querySelector(".formAddCard");
 formAddCard.addEventListener("submit", (event) => {
   event.preventDefault();
   formAddCard.reset()
+});
+
+const formSearch = document.querySelector('.form_search');
+formSearch.addEventListener("submit", (event) => {
+
+  const inputSearch = document.querySelector('#search').value;
+
+  event.preventDefault();
+  formSearch.reset()
+  removerElementos('listItems')
+  search(inputSearch);
+
 });
 
 
@@ -291,7 +301,7 @@ var storegeLocal = (chave , valor) => {
 
 // Função para criar elementos dos cards salvos localmente
 
-var criarCardsLocaisPendentes = ( value ) => {
+function criarCardsLocaisPendentes  ( value ) {
 
   const itemCard = document.createElement('div');
   itemCard.classList.add('itemCard')
@@ -429,3 +439,32 @@ function atualizarProgresso () {
 
   progresso.style.width = `${prog}%`;
 }
+
+// Função que executa a busca pelos cards;
+
+function search (search) {
+
+  console.log(search)
+
+  let valoresPendentes = JSON.parse(localStorage.getItem('pending')) || [];
+  let valoresConcluidos = JSON.parse(localStorage.getItem('Concluidos')) || [];
+  let itemSemelhantesPendentes;
+  let itemSemelhantesConcluidos;
+ 
+  console.log("Valores pendentes:", valoresPendentes);
+  console.log("Valores concluídos:", valoresConcluidos);
+
+
+  itemSemelhantesPendentes = valoresPendentes.filter( (item) => item.includes(search) );
+  itemSemelhantesConcluidos = valoresConcluidos.filter( (item) => item.includes(search) );
+
+
+
+  itemSemelhantesPendentes.forEach( obj =>{
+    criarCardsLocaisPendentes(obj);
+  })
+  itemSemelhantesConcluidos.forEach( obj =>{
+    criarCardsLocaisConcluidos(obj);
+  })
+}
+

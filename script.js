@@ -2,15 +2,16 @@
 
 
  // Criar evento de edição
- 
- // Ageitar o ressponsivo
+
+ // Terminar de ageitar o sitema de excluir o card do localstorage quando aperta o button de remover - bug
+
+
  // gerar o sistema de filtro de pesquisa
  // adicionar a api para traduzir o idioma 
- // gerar o sistema de reiniciar a cada dia 
 
 
 
-window.onload = atualizarData;
+window.onload = atualizarTasksDiarias , atualizarData() ;
 
 var cardConcluidos = [];
 
@@ -35,7 +36,6 @@ formAddCard.addEventListener("submit", (event) => {
   event.preventDefault();
   formAddCard.reset()
 });
-
 
 
 
@@ -82,11 +82,30 @@ function atualizarData () {
     
     const dayWeek = document.querySelector(".day__js");
     dayWeek.textContent = week[date.getUTCDay() - 1];
+
+
 }    
 
+//  Função usada para resetar todas as listas de cards assim que atualizar o dia
+
+function atualizarTasksDiarias () {
+    
+    const date= new Date();
+    const diaAtual = date.getDate() ;
 
 
+    const diaStorage = localStorage.getItem('dataStorage');
 
+    if ( diaAtual != diaStorage){
+
+        localStorage.removeItem('pending');
+        localStorage.removeItem('Concluidos');
+
+        localStorage.setItem('dataStorage' , diaAtual);
+
+    }
+
+}
 
 // Função que cria novos cards 
 
@@ -184,7 +203,6 @@ var criarCard = (inputValue) => {
     }
 };
 
-
 // Exibir em tela os elementos em memoria local pendentes
 
 var cardsPendentes = () => {
@@ -252,7 +270,6 @@ var removerElementos = (container) => {
   const containerArray = document.querySelector(`.${container}`);
   containerArray.innerHTML = "";  
 }
-
 
 
 // Mandar o array com as tesks prontas para memoria local
@@ -341,6 +358,8 @@ var criarCardsLocaisPendentes = ( value ) => {
   buttonRemove.addEventListener('click', () =>{ 
 
     itemCard.remove();
+
+    // tem que remover do local storage
 
   })
 

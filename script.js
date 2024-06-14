@@ -166,7 +166,6 @@ const criarCard = (inputValue) => {
     divActions.appendChild(buttonDone);
 
     NameItem.appendChild(name);
-    NameItem.appendChild(requiredEdit);
 
     itemCard.appendChild(NameItem);
     itemCard.appendChild(divActions);
@@ -254,7 +253,7 @@ var cardsConcluidos = () => {
 // função que renderiza elementos em local storage em tela  
   
 var MostrarEmTela = ( chave ) => {
-  var value = JSON.parse(localStorage.getItem(`${chave}`));
+  var value = JSON.parse(localStorage.getItem(chave));
   
 
   if (chave == 'pending'){

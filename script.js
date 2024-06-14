@@ -1,9 +1,3 @@
-// tesk a fazer 
-// Criar evento de edição
-// adicionar a api para traduzir o idioma 
-
-
-
 window.onload = atualizarTasksDiarias , atualizarData()  , atualizarProgresso();
 
 var buttonDone = document.querySelector('.done');
@@ -158,6 +152,10 @@ const criarCard = (inputValue) => {
     const iDone = document.createElement('i');
     iDone.classList.add("fa-solid" , "fa-check")
 
+    // const requiredEdit = document.createElement('span');
+    // requiredEdit.innerHTML = 'Para editar o card escreva o novo texto na barra de criação'
+    // requiredEdit.classList.add('escondido' , 'spanRequired')
+
     divRemove.appendChild(iRemove);
     buttonRemove.appendChild(divRemove);
 
@@ -168,6 +166,7 @@ const criarCard = (inputValue) => {
     divActions.appendChild(buttonDone);
 
     NameItem.appendChild(name);
+    NameItem.appendChild(requiredEdit);
 
     itemCard.appendChild(NameItem);
     itemCard.appendChild(divActions);
@@ -190,6 +189,12 @@ const criarCard = (inputValue) => {
     
     // evento de edição de informações do input
 
+    // // evento de edição
+
+    // NameItem.addEventListener('click' , () =>{
+    //   requiredEdit.classList.toggle('escondido')
+    //   const novoText = document.querySelector('')
+    // })
 
 
     // Evento de remoção de card 

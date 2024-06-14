@@ -324,7 +324,11 @@ nav{
     font-weight: 400;
 }
 
-
+/* .spanRequired{
+    font-size: 10px;
+    margin-left: 100px;
+    color: #e37373;
+} */
 
 .escondido{
     display: none;

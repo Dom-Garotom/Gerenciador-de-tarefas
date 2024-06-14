@@ -1,6 +1,4 @@
 // tesk a fazer 
-
-
 // Criar evento de edição
 // adicionar a api para traduzir o idioma 
 
@@ -30,9 +28,6 @@ const config = { childList: true, subtree: true };
 if (observador){
   atualizador.observe(observador , config);
 }
-
-
-
 
 // Evita o comportamento dos formulários
 
@@ -429,15 +424,19 @@ var removerDaMemoria = (  chave , elementoParaRemover ) => {
 function atualizarProgresso () {
   let Pendentes = JSON.parse(localStorage.getItem('pending'));
   let concluidas = JSON.parse(localStorage.getItem('Concluidos'));
-  let total = Pendentes.length + concluidas.length;
-
-  let prog = ( concluidas.length / total ) * 100;
-  prog = prog.toFixed(2);
 
 
-  const progresso = document.querySelector('#progresso');
+  if ( Pendentes && Array.isArray(Pendentes) || concluidas && Array.isArray(concluidas)){
+    let total = Pendentes.length + concluidas.length;
 
-  progresso.style.width = `${prog}%`;
+    let prog = ( concluidas.length / total ) * 100;
+    prog = prog.toFixed(2);
+
+
+    const progresso = document.querySelector('#progresso');
+
+    progresso.style.width = `${prog}%`;
+  }
 }
 
 // Função que executa a busca pelos cards;
